@@ -55,27 +55,19 @@ const ExperienceSection = () => {
   const experiences = [
     {
       icon: Network,
-      title: "WordPress Developer",
-      company: "Fiverr",
-      period: "2019 - 2020",
+      title: "Full Stack Development Trainee",
+      company: "Soviet Technologies",
+      period: "2023 - 2024",
       description:
-        "Worked on developing and customizing WordPress websites for clients globally.",
-    },
-    {
-      icon: Layers,
-      title: "Junior Frontend Developer",
-      company: "Sera Programmer",
-      period: "2021 - 2023",
-      description:
-        "Assisted in building and optimizing user interfaces with a focus on responsive and interactive designs.",
+        "Built a real-time MERN chat application with Socket.io, JWT authentication, and responsive UI.",
     },
     {
       icon: Code2,
-      title: "JavaScript Developer",
-      company: "OlovJS (Sera Programmer)",
-      period: "2023 - Present",
+      title: "Software Engineer",
+      company: "JMK Next Technologies",
+      period: "2025 - Present",
       description:
-        "Contributed to developing JavaScript libraries and enhancing framework functionalities.",
+        "Developing scalable full-stack solutions across frontend, backend, mobile, and cloud deployment.",
     },
   ];
 
@@ -108,8 +100,8 @@ const ExperienceSection = () => {
           {/* Section header with enhanced effects */}
           <div className="flex flex-col items-center space-y-8 mb-20">
             <div className="relative">
-              <h2 className="text-5xl md:text-7xl font-black text-transparent bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-center">
-                Professional Journey
+              <h2 className="text-5xl md:text-7xl font-black text-white text-center">
+                Professional <span className="gradient-text">Journey</span>
               </h2>
               <div className="absolute inset-0 -z-10 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 blur-3xl rounded-full" />
             </div>
@@ -119,7 +111,7 @@ const ExperienceSection = () => {
           </div>
 
           {/* Experience grid with improved layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
             {experiences.map((exp, index) => (
               <ExperienceCard key={index} {...exp} />
             ))}

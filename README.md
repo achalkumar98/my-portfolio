@@ -1,193 +1,184 @@
-# Portfolio Website
-<div align="center">
-  <pre>
-    _____           _    __      _ _       
-   |  __ \         | |  / _|    | (_)      
-   | |__) |__  _ __| |_| |_ ___ | |_  ___  
-   |  ___/ _ \| '__| __|  _/ _ \| | |/ _ \ 
-   | |  | (_) | |  | |_| || (_) | | | (_) |
-   |_|   \___/|_|   \__|_| \___/|_|_|\___/ 
-  </pre>
-</div>
+# 🚀 Achal Kumar – Portfolio Website
 
- 
-Welcome to my **portfolio website**! This site showcases my skills, experience, education, projects, and how to get in touch with me. It's built with **React** and **Vite** for a fast, modern web experience. You can explore my work, learn about my journey, and contact me directly.
+## 🌟 Overview
+
+This is my personal **developer portfolio website**, designed to showcase my professional journey, technical skills, projects, hackathon achievements, education, and work experience.
+
+The portfolio highlights my expertise in **Full Stack Development**, featuring modern UI/UX, smooth animations, interactive components, and responsive design built with React and Vite.
+
+🚀 **Live Demo:** https://e-commerce-website-jfor.vercel.app/
+
+📌 **GitHub Repository:** https://github.com/achalkumar98/my-portfolio
 
 ---
 
-## Demo
+# ✨ Features
 
-![Portfolio Demo](https://i.postimg.cc/Dfr5jCQp/Screenshot-2025-01-02-120901.png)
+✅ Modern & Responsive Portfolio Design
+
+✅ Beautiful Dark UI with Smooth Animations
+
+✅ Interactive Hero Section
+
+✅ Skills & Technology Showcase
+
+✅ Professional Experience Timeline
+
+✅ Education Timeline
+
+✅ Featured Projects with Live Demo & GitHub Links
+
+✅ Hackathon Achievements & Awards
+
+✅ Contact Form with Social Links & Google Maps
+
+✅ Fully Responsive across Desktop, Tablet & Mobile
 
 ---
 
-## Live Preview
+# 🛠 Tech Stack
 
-Check out the live preview of the portfolio website here:  
-[**Live Demo**](https://codervai.vercel.app/)
+**Frontend**
+
+- React.js
+- Vite
+- Tailwind CSS
+
+**UI Components**
+
+- Shadcn UI
+- Aceternity UI
+- Magic UI
+- React Icons
+- Lucide React
+
+**Animations**
+
+- Framer Motion
+- CSS Animations
+
+**Deployment**
+
+- Vercel
+
 ---
-### 🎯 Project Structure
+
+# 📂 Project Structure
+
 ```bash
-portfolio/
-├── node_modules/
-├── public/
-├── src/
+my-portfolio/
+│── public/
+│── src/
 │   ├── assets/
-│   │   ├── css/
-│   │   │   ├── index.css
-│   │   │   └── tomorrow.css
-│   │   └── images/
 │   ├── components/
-│   │   ├── ui/
-│   │   │   ├── Reusable Components/
-│   │   │   │   ├── badge.jsx
-│   │   │   │   ├── button.jsx
-│   │   │   │   ├── card.jsx
-│   │   │   │   ├── EducationLoader.jsx
-│   │   │   │   ├── evervault-card.jsx
-│   │   │   │   ├── flip-words.jsx
-│   │   │   │   ├── icon-cloud.jsx
-│   │   │   │   ├── meteors.jsx
-│   │   │   │   ├── sparkles-text.jsx
-│   │   │   │   └── tooltip.jsx
-│   │   │   │
-│   │   │   ├── Main Components/
-│   │   │   │   ├── AnimatedGrid.jsx
-│   │   │   │   ├── Contact.jsx
-│   │   │   │   ├── Education.jsx
-│   │   │   │   ├── enhanced-portfolio-card.jsx
-│   │   │   │   ├── Experience.jsx
-│   │   │   │   ├── global.jsx
-│   │   │   │   ├── Header.jsx
-│   │   │   │   ├── Hero.jsx
-│   │   │   │   ├── Home.jsx
-│   │   │   │   ├── PortfolioPage.jsx
-│   │   │   │   ├── Projects.jsx
-│   │   │   │   └── Skills.jsx
-│   │   └── lib/
-│   │       └── utils.js
 │   ├── pages/
-│   │   ├── About/
-│   │   │   └── About.jsx
-│   │   ├── Contact/
-│   │   │   └── Contact.jsx
-│   │   ├── Experience/
-│   │   │   └── Experience.jsx
-│   │   ├── Header/
-│   │   │   └── Header.jsx
-│   │   ├── Hero/
-│   │   │   └── Hero.jsx
-│   │   ├── Projects/
-│   │   │   ├── Projects.jsx
-│   │   │   └── testProjects.jsx
-│   │   └── Skills/
-│   │       └── Skills.jsx
 │   ├── App.jsx
 │   └── main.jsx
-├── Configuration Files/
-│   ├── .eslintrc.js
-│   ├── .gitignore
-│   ├── components.json
-│   ├── index.html
-│   ├── jsconfig.json
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── postcss.config.js
-│   ├── README.md
-│   ├── tailwind.config.js
-│   ├── vercel.json
-│   └── vite.config.js
-
+│
+├── .gitignore
+├── components.json
+├── package.json
+├── vite.config.js
+├── vercel.json
+└── README.md
 ```
----
-
-## Sections of the Portfolio
-
-The portfolio website consists of the following sections:
-
-- **Home**: Introduction and a brief overview.
-- **Skills**: A detailed list of my technical skills.
-- **Experience**: My professional journey and work experience.
-- **Education**: Academic background and certifications.
-- **Projects**: A showcase of the projects I've worked on.
-- **Contact**: Information on how to reach out to me.
 
 ---
 
-## 💻 Technologies Used
-- **Frontend:** React.js with Vite
-- **Styling:** Tailwind CSS
-- **Animations:** Framer Motion
-- **Icons:** React Icons
-- **Deployment:** Vercel
+# 🚀 Sections
+
+🏠 Hero
+
+👨‍💻 About Me
+
+⚡ Skills
+
+💼 Experience
+
+🎓 Education
+
+🚀 Projects
+
+🏆 Hackathon Achievements
+
+📞 Contact
 
 ---
 
-## Installation ⬇️
+# 🏗 Installation
 
-You will need to download **Git** and **Node** to run this project.
+### Clone Repository
 
-### Git
-
-- Download and install Git from the official website: [Git Downloads](https://git-scm.com/)
-- Verify the installation:
-  ```bash
-  git --version
-  ```
-
-### Node
-
-- Download and install Node.js from the official website: [Node.js Downloads](https://nodejs.org/)
-- Make sure you have the latest version of both Git and Node on your computer.
-- Verify the installation:
-  ```bash
-  node --version
-  ```
-
-# Getting Started 🎯
-
-### Fork and Clone the Repository 🚀
-1. Click the **Fork** button at the top-right corner of the page to create your own copy of the repository.
-2. After forking, open your terminal and run the following commands to clone the repo:
-
-  ```bash
-  git clone https://github.com/seraprogrammer/portfolio.git
-  ```
-Navigate to the Project Directory 📂
-Once the repository is cloned, change your directory to the project folder:
 ```bash
-cd portfolio
+git clone https://github.com/achalkumar98/my-portfolio.git
+
+cd my-portfolio
 ```
 
-Install Dependencies ⚙️
-From the root directory of your project, install the necessary packages:
+### Install Dependencies
+
 ```bash
 npm install
 ```
 
-Run the Development Server 🚀
-Start the development server to see your project live:
+### Run Project
+
 ```bash
 npm run dev
 ```
 
-View the Project 🌐
-Open your browser and visit http://localhost:5173/ to see the result! 🎉
+---
 
-## 📝 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+# 🌐 Deployment
+
+This portfolio is deployed on **Vercel**.
+
+Live Website
+
+https://e-commerce-website-jfor.vercel.app/
 
 ---
 
-### 🤝 Contributing
+# 🎯 Future Improvements
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+✨ Blog Section
+
+✨ Project Filtering
+
+✨ Light/Dark Theme Toggle
+
+✨ Download Resume
+
+✨ Multi-language Support
+
+✨ Visitor Analytics
+
+✨ Email Integration
+
+✨ Admin Dashboard
 
 ---
 
-<div align="center"> Made with ❤️ by Nazmul Hossain </div>
+# 🤝 Contributing
 
+Contributions are welcome!
+
+Feel free to fork this repository and submit a Pull Request.
+
+---
+
+# 📫 Contact
+
+👨‍💻 **Author:** Achal Kumar
+
+🌐 **Portfolio:** https://e-commerce-website-jfor.vercel.app/
+
+📧 **Email:** hackerachal1620@gmail.com
+
+💼 **LinkedIn:** https://linkedin.com/in/devachal
+
+🐙 **GitHub:** https://github.com/achalkumar98
+
+---
+
+## ⭐ If you like this project, don't forget to star the repository!

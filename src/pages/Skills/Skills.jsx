@@ -2,7 +2,15 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import IconCloudDemo from "@/components/globe";
-import { Code2, Paintbrush, Database, Layout, Cpu, Cloud } from "lucide-react";
+import {
+  Code2,
+  Paintbrush,
+  Database,
+  Layout,
+  Cpu,
+  Cloud,
+  Smartphone,
+} from "lucide-react";
 import {
   FaReact,
   FaNodeJs,
@@ -19,13 +27,14 @@ import {
   SiTailwindcss,
   SiPostgresql,
   SiMongodb,
-  SiGraphql,
   SiJest,
   SiWebpack,
   SiRedux,
   SiFirebase,
   SiVercel,
   SiVite,
+  SiExpo,
+  SiAndroidstudio,
 } from "react-icons/si";
 import { TbBrandVscode } from "react-icons/tb";
 import { BsFileEarmarkCode, BsGrid1X2 } from "react-icons/bs";
@@ -104,8 +113,8 @@ const SkillsSection = () => {
           icon: <FaNodeJs className="w-4 h-4 text-[#339933]" />,
         },
         {
-          name: "Python",
-          icon: <FaPython className="w-4 h-4 text-[#3776AB]" />,
+          name: "Express.js",
+          icon: <FaNodeJs className="w-4 h-4 text-white" />,
         },
         {
           name: "PostgreSQL",
@@ -119,29 +128,20 @@ const SkillsSection = () => {
           name: "REST APIs",
           icon: <BsGrid1X2 className="w-4 h-4 text-[#FF6C37]" />,
         },
-        {
-          name: "GraphQL",
-          icon: <SiGraphql className="w-4 h-4 text-[#E10098]" />,
-        },
       ],
     },
     {
-      icon: Layout,
-      title: "UI/UX Design",
+      icon: Smartphone,
+      title: "Mobile Development",
       color: "text-purple-400",
       skills: [
-        { name: "Figma", icon: <FaFigma className="w-4 h-4 text-[#F24E1E]" /> },
         {
-          name: "Responsive Design",
-          icon: <Layout className="w-4 h-4 text-[#38B2AC]" />,
+          name: "React Native",
+          icon: <FaReact className="w-4 h-4 text-[#61DAFB]" />,
         },
         {
-          name: "Wireframing",
-          icon: <BsGrid1X2 className="w-4 h-4 text-[#9CA3AF]" />,
-        },
-        {
-          name: "Prototyping",
-          icon: <MdAnimation className="w-4 h-4 text-[#F59E0B]" />,
+          name: "Expo",
+          icon: <SiExpo className="w-4 h-4 text-white" />,
         },
       ],
     },
@@ -185,6 +185,10 @@ const SkillsSection = () => {
         },
         { name: "Vercel", icon: <SiVercel className="w-4 h-4 text-white" /> },
         { name: "Vite", icon: <SiVite className="w-4 h-4 text-[#646CFF]" /> },
+        {
+          name: "Android Studio",
+          icon: <SiAndroidstudio className="w-4 h-4 text-[#3DDC84]" />,
+        },
       ],
     },
     {
@@ -246,7 +250,8 @@ const SkillsSection = () => {
           animation: shimmer 2s infinite;
         }
         .bg-grid-pattern {
-          background-image: linear-gradient(
+          background-image:
+            linear-gradient(
               to right,
               rgba(100, 100, 255, 0.1) 1px,
               transparent 1px

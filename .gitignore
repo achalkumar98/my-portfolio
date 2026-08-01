@@ -1,7 +1,7 @@
 node_modules/
 dist/
-dist-ssr
-*.log files
+dist-ssr/
+*.log
 .DS_Store
 *.local
 
@@ -12,3 +12,11 @@ dist-ssr
 
 # OS files
 Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Cache
+.cache/
+*.tsbuildinfo

@@ -40,7 +40,6 @@ const EducationSection = () => {
         "Web Development",
         "Database Management",
         "Data Structures & Algorithms",
-        "Software Engineering",
       ],
       description:
         "Completed a Bachelor of Technology in Computer Science & Engineering with a strong foundation in software development, programming, databases, and modern web technologies. Built academic and practical projects while developing problem-solving, analytical, and teamwork skills.",
@@ -85,10 +84,10 @@ const EducationSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent mb-6">
-            Educational Journey
+          <h2 className="text-5xl md:text-7xl font-black text-white mb-6">
+            Educational <span className="gradient-text">Journey</span>
           </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
             Discover how academic excellence shapes innovative thinking and
             professional growth.
           </p>

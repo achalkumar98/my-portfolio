@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { Send, Phone, MapPin, Mail } from "lucide-react";
+import {
+  Send,
+  MapPin,
+  Mail,
+  Copy,
+  Tag,
+  User,
+  MessageSquare,
+} from "lucide-react";
+import { FaLinkedin, FaGithub, FaInstagram, FaTelegram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -8,226 +18,335 @@ export default function Contact() {
     subject: "",
     message: "",
   });
-
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState("");
 
-  const validateForm = () => {
-    let tempErrors = {};
-    let isValid = true;
+  const validate = () => {
+    let temp = {};
+    if (!formData.name.trim()) temp.name = "Name is required";
+    if (!formData.email.trim()) temp.email = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) temp.email = "Invalid email";
+    if (!formData.subject.trim()) temp.subject = "Subject is required";
+    if (!formData.message.trim()) temp.message = "Message is required";
+    setErrors(temp);
+    return Object.keys(temp).length === 0;
+  };
 
-    if (!formData.name.trim()) {
-      tempErrors.name = "Name is required";
-      isValid = false;
-    }
-
-    if (!formData.email.trim()) {
-      tempErrors.email = "Email is required";
-      isValid = false;
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      tempErrors.email = "Email is invalid";
-      isValid = false;
-    }
-
-    if (!formData.subject.trim()) {
-      tempErrors.subject = "Subject is required";
-      isValid = false;
-    }
-
-    if (!formData.message.trim()) {
-      tempErrors.message = "Message is required";
-      isValid = false;
-    }
-
-    setErrors(tempErrors);
-    return isValid;
+  const handleCopy = (text, key) => {
+    navigator.clipboard.writeText(text);
+    setCopied(key);
+    setTimeout(() => setCopied(""), 2000);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validateForm()) {
-      setStatus("Please fill in all required fields correctly.");
-      return;
-    }
-
-    // Create a new FormData object to send to Web3Forms API
+    if (!validate()) return;
+    setLoading(true);
     const form = new FormData();
-    form.append("access_key", "90f4b8af-e590-42b0-beaf-10b18f66a703"); // Replace with your Web3Forms access key
+    form.append("access_key", "YOUR_WEB3FORMS_ACCESS_KEY");
     form.append("name", formData.name);
     form.append("email", formData.email);
-    form.append("subject", formData.subject || "New Contact Form Submission");
+    form.append("subject", formData.subject);
     form.append("message", formData.message);
-
     try {
-      // Send form data to Web3Forms API
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: form,
       });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setStatus("Message sent successfully!");
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        });
+      const result = await res.json();
+      if (res.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", subject: "", message: "" });
         setErrors({});
       } else {
-        setStatus(result.message || "There was an error sending your message.");
+        setStatus(result.message || "error");
       }
-    } catch (error) {
-      setStatus("An error occurred. Please try again.");
-      console.error("Error:", error);
+    } catch {
+      setStatus("error");
+    } finally {
+      setLoading(false);
     }
   };
 
+  const inputClass = (field) =>
+    `w-full px-4 py-3.5 rounded-xl bg-[#0d1117] border ${
+      errors[field] ? "border-red-500" : "border-gray-800"
+    } focus:border-blue-500 focus:outline-none text-white placeholder-gray-600 transition-all`;
+
+  const socials = [
+    {
+      icon: <FaLinkedin className="w-4 h-4 text-[#0A66C2]" />,
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/devachal",
+    },
+    {
+      icon: <FaInstagram className="w-4 h-4 text-[#E1306C]" />,
+      label: "Instagram",
+      href: "https://instagram.com",
+    },
+    {
+      icon: <FaGithub className="w-4 h-4 text-white" />,
+      label: "GitHub",
+      href: "https://github.com/achalkumar98",
+    },
+    {
+      icon: <FaXTwitter className="w-4 h-4 text-white" />,
+      label: "X (Twitter)",
+      href: "https://twitter.com",
+    },
+  ];
+
   return (
-    <main
-      className="pt-20 lg:pt-[0rem] bg-[#04081A]
- text-white min-h-screen"
-    >
-      <section className="hero min-h-screen flex items-center relative px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Contact Info */}
-            <div className="space-y-8">
+    <main className="bg-[#04081A] text-white min-h-screen">
+      <section className="min-h-screen flex items-center px-4 sm:px-6 lg:px-8 py-24 lg:py-20">
+        <div className="container mx-auto max-w-6xl w-full">
+          <div className="grid lg:grid-cols-2 gap-10 items-start">
+            {/* Left Column */}
+            <div className="space-y-6">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800/60 border border-gray-700 text-sm">
+                <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                Let's Connect
+              </div>
+
+              {/* Title */}
               <div>
-                <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                  Get in Touch
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-4">
+                  Get in <span className="gradient-text">Touch</span>
                 </h2>
-                <p className="text-gray-300 text-lg">
-                  Have a question or want to work together? Drop us a message!
+                <p className="text-gray-400 text-base sm:text-lg leading-relaxed">
+                  Have a project in mind or want to collaborate?{" "}
+                  <span className="block sm:inline">
+                    I'd love to hear from you.
+                  </span>
                 </p>
               </div>
 
-              <div className="space-y-6">
-                <div className="flex items-center space-x-4">
-                  <div className="bg-purple-500/10 p-3 rounded-lg">
-                    <Mail className="w-6 h-6 text-purple-400" />
+              {/* Email & Location Cards */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 bg-gray-900/60 border border-gray-800 rounded-2xl p-4">
+                  <div className="bg-blue-500/20 p-2.5 rounded-xl shrink-0">
+                    <Mail className="w-5 h-5 text-blue-400" />
                   </div>
-                  <div>
-                    <h3 className="font-semibold">Email</h3>
-                    <p className="text-gray-400">olovajs@gmail.com</p>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm text-gray-400 font-medium">Email</p>
+                    <p className="text-gray-300 text-sm truncate">
+                      dev.padeyachal@gmail.com
+                    </p>
                   </div>
+                  <button
+                    onClick={() =>
+                      handleCopy("dev.padeyachal@gmail.com", "email")
+                    }
+                    className="text-gray-500 hover:text-white transition-colors shrink-0"
+                  >
+                    <Copy className="w-4 h-4" />
+                  </button>
                 </div>
 
-                <div className="flex items-center space-x-4">
-                  <div className="bg-pink-500/10 p-3 rounded-lg">
-                    <MapPin className="w-6 h-6 text-pink-400" />
+                <div className="flex items-center gap-3 bg-gray-900/60 border border-gray-800 rounded-2xl p-4">
+                  <div className="bg-purple-500/20 p-2.5 rounded-xl shrink-0">
+                    <MapPin className="w-5 h-5 text-purple-400" />
                   </div>
-                  <div>
-                    <h3 className="font-semibold">Location</h3>
-                    <p className="text-gray-400">Laxmipure, Natore 6400</p>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm text-gray-400 font-medium">
+                      Location
+                    </p>
+                    <p className="text-gray-300 text-sm">Arrah, Bihar 802301</p>
                   </div>
+                  <button
+                    onClick={() =>
+                      handleCopy("Arrah, Bihar 802301", "location")
+                    }
+                    className="text-gray-500 hover:text-white transition-colors shrink-0"
+                  >
+                    <Copy className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Social Links */}
+              <div>
+                <p className="text-sm text-gray-400 mb-3 font-medium">
+                  Connect with me
+                </p>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {socials.map((s, i) => (
+                    <a
+                      key={i}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 bg-gray-900/60 border border-gray-800 hover:border-gray-600 rounded-xl px-3 py-2.5 transition-all hover:scale-105 text-sm text-white"
+                    >
+                      {s.icon} {s.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Google Map */}
+              <div className="rounded-2xl overflow-hidden border border-gray-800 h-48 w-full">
+                <iframe
+                  title="Arrah Bihar Map"
+                  src="https://maps.google.com/maps?q=25.5467713,84.6675273&z=15&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{
+                    border: 0,
+                    filter: "invert(90%) hue-rotate(180deg)",
+                  }}
+                  allowFullScreen=""
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Bottom CTA */}
+              <div className="flex items-start sm:items-center gap-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-4 sm:p-5">
+                <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-3 rounded-xl shrink-0">
+                  <FaTelegram className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-white font-semibold text-sm sm:text-base">
+                    Let's build something amazing together
+                  </p>
+                  <p className="text-gray-400 text-xs sm:text-sm">
+                    I'm always open to new opportunities and exciting projects.
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Contact Form */}
-            <div className="backdrop-blur-lg bg-white/5 p-8 rounded-2xl shadow-xl">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 gap-6">
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Your Name"
-                      className={`w-full px-4 py-3 rounded-lg bg-white/5 border ${
-                        errors.name ? "border-red-500" : "border-gray-700"
-                      } focus:border-blue-500 focus:outline-none transition-colors`}
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                    />
-                    {errors.name && (
-                      <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-                    )}
-                  </div>
+            {/* Right Column - Form */}
+            <div
+              className="border border-blue-500/30 rounded-2xl p-5 sm:p-8"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(59,130,246,0.05) 0%, rgba(139,92,246,0.05) 100%)",
+              }}
+            >
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="relative">
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <input
+                    type="text"
+                    placeholder="Your Name"
+                    className={inputClass("name") + " pl-11"}
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                  />
+                  {errors.name && (
+                    <p className="text-red-400 text-xs mt-1">{errors.name}</p>
+                  )}
+                </div>
 
-                  <div>
-                    <input
-                      type="email"
-                      placeholder="Your Email"
-                      className={`w-full px-4 py-3 rounded-lg bg-white/5 border ${
-                        errors.email ? "border-red-500" : "border-gray-700"
-                      } focus:border-blue-500 focus:outline-none transition-colors`}
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                    />
-                    {errors.email && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.email}
-                      </p>
-                    )}
-                  </div>
+                <div className="relative">
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <input
+                    type="email"
+                    placeholder="Your Email"
+                    className={inputClass("email") + " pl-11"}
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                  />
+                  {errors.email && (
+                    <p className="text-red-400 text-xs mt-1">{errors.email}</p>
+                  )}
+                </div>
 
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Subject"
-                      className={`w-full px-4 py-3 rounded-lg bg-white/5 border ${
-                        errors.subject ? "border-red-500" : "border-gray-700"
-                      } focus:border-blue-500 focus:outline-none transition-colors`}
-                      value={formData.subject}
-                      onChange={(e) =>
-                        setFormData({ ...formData, subject: e.target.value })
-                      }
-                    />
-                    {errors.subject && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.subject}
-                      </p>
-                    )}
-                  </div>
+                <div className="relative">
+                  <Tag className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <input
+                    type="text"
+                    placeholder="Subject"
+                    className={inputClass("subject") + " pl-11"}
+                    value={formData.subject}
+                    onChange={(e) =>
+                      setFormData({ ...formData, subject: e.target.value })
+                    }
+                  />
+                  {errors.subject && (
+                    <p className="text-red-400 text-xs mt-1">
+                      {errors.subject}
+                    </p>
+                  )}
+                </div>
 
-                  <div>
-                    <textarea
-                      placeholder="Your Message"
-                      rows="4"
-                      className={`w-full px-4 py-3 rounded-lg bg-white/5 border ${
-                        errors.message ? "border-red-500" : "border-gray-700"
-                      } focus:border-blue-500 focus:outline-none transition-colors resize-none`}
-                      value={formData.message}
-                      onChange={(e) =>
-                        setFormData({ ...formData, message: e.target.value })
-                      }
-                    ></textarea>
-                    {errors.message && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.message}
-                      </p>
-                    )}
-                  </div>
+                <div className="relative">
+                  <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-gray-500" />
+                  <textarea
+                    placeholder="Your Message"
+                    rows="7"
+                    className={inputClass("message") + " pl-11 resize-none"}
+                    value={formData.message}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
+                  />
+                  {errors.message && (
+                    <p className="text-red-400 text-xs mt-1">
+                      {errors.message}
+                    </p>
+                  )}
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 px-6 rounded-lg font-semibold flex items-center justify-center space-x-2 hover:opacity-90 transition-opacity"
+                  disabled={loading}
+                  className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-4 px-6 rounded-xl font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all disabled:opacity-60 disabled:cursor-not-allowed text-base"
                 >
-                  <span>Send Message</span>
-                  <Send className="w-4 h-4" />
+                  {loading ? (
+                    <>
+                      <svg
+                        className="animate-spin w-4 h-4"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8v8z"
+                        />
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" /> Send Message
+                    </>
+                  )}
                 </button>
-              </form>
 
-              {/* Status Message */}
-              {status && (
-                <div
-                  className={`mt-4 text-center ${
-                    status.includes("success")
-                      ? "text-green-400"
-                      : "text-red-400"
-                  }`}
-                >
-                  <p>{status}</p>
-                </div>
-              )}
+                <p className="text-center text-gray-500 text-sm flex items-center justify-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse inline-block"></span>
+                  I usually reply within 24 hours
+                </p>
+
+                {status === "success" && (
+                  <div className="text-center py-3 px-4 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 text-sm">
+                    ✅ Message sent! I'll get back to you soon.
+                  </div>
+                )}
+                {status === "error" && (
+                  <div className="text-center py-3 px-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+                    ❌ Something went wrong. Please try again.
+                  </div>
+                )}
+              </form>
             </div>
           </div>
         </div>
