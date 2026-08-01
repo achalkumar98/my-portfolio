@@ -1,9 +1,9 @@
-node_modules      ✅
-dist              ✅
-dist-ssr          ✅
-*.log files       ✅
-.DS_Store         ✅
-*.local           ✅
+node_modules/
+dist/
+dist-ssr
+*.log files
+.DS_Store
+*.local
 
 # Environment variables
 .env
