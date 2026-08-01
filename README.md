@@ -6,7 +6,7 @@ This is my personal **developer portfolio website**, designed to showcase my pro
 
 The portfolio highlights my expertise in **Full Stack Development**, featuring modern UI/UX, smooth animations, interactive components, and responsive design built with React and Vite.
 
-🚀 **Live Demo:** https://e-commerce-website-jfor.vercel.app/
+🚀 **Live Demo:** https://my-portfolio-two-sigma-22.vercel.app/
 
 📌 **GitHub Repository:** https://github.com/achalkumar98/my-portfolio
 
@@ -135,7 +135,7 @@ This portfolio is deployed on **Vercel**.
 
 Live Website
 
-https://e-commerce-website-jfor.vercel.app/
+https://my-portfolio-two-sigma-22.vercel.app/
 
 ---
 
@@ -171,7 +171,7 @@ Feel free to fork this repository and submit a Pull Request.
 
 👨‍💻 **Author:** Achal Kumar
 
-🌐 **Portfolio:** https://e-commerce-website-jfor.vercel.app/
+🌐 **Portfolio:** https://my-portfolio-two-sigma-22.vercel.app/
 
 📧 **Email:** hackerachal1620@gmail.com
 
