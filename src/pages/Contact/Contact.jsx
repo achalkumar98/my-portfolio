@@ -7,6 +7,9 @@ import {
   Tag,
   User,
   MessageSquare,
+  CheckCircle,
+  X,
+  XCircle,
 } from "lucide-react";
 import { FaLinkedin, FaGithub, FaInstagram, FaTelegram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
@@ -100,6 +103,81 @@ export default function Contact() {
 
   return (
     <main className="bg-[#04081A] text-white min-h-screen">
+      {/* Success Popup */}
+      {status === "success" && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center px-4"
+          onClick={() => setStatus(null)}
+        >
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          <div
+            className="relative bg-[#0d1117] border border-green-500/30 rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setStatus(null)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="flex items-center justify-center mb-4">
+              <div className="bg-green-500/10 p-4 rounded-full">
+                <CheckCircle className="w-12 h-12 text-green-400" />
+              </div>
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">Message Sent!</h3>
+            <p className="text-gray-400 text-sm mb-6">
+              Thanks for reaching out. I'll get back to you within 24 hours.
+            </p>
+            <button
+              onClick={() => setStatus(null)}
+              className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition-all"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Error Popup */}
+      {status === "error" && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center px-4"
+          onClick={() => setStatus(null)}
+        >
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          <div
+            className="relative bg-[#0d1117] border border-red-500/30 rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setStatus(null)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="flex items-center justify-center mb-4">
+              <div className="bg-red-500/10 p-4 rounded-full">
+                <XCircle className="w-12 h-12 text-red-400" />
+              </div>
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">
+              Something Went Wrong!
+            </h3>
+            <p className="text-gray-400 text-sm mb-6">
+              Failed to send your message. Please try again or email me
+              directly.
+            </p>
+            <button
+              onClick={() => setStatus(null)}
+              className="w-full bg-gradient-to-r from-red-500 to-pink-500 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition-all"
+            >
+              Try Again
+            </button>
+          </div>
+        </div>
+      )}
+
       <section className="min-h-screen flex items-center px-4 sm:px-6 lg:px-8 pt-32 pb-20">
         <div className="container mx-auto max-w-6xl w-full">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
@@ -335,17 +413,6 @@ export default function Contact() {
                   <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse inline-block"></span>
                   I usually reply within 24 hours
                 </p>
-
-                {status === "success" && (
-                  <div className="text-center py-3 px-4 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 text-sm">
-                    ✅ Message sent! I'll get back to you soon.
-                  </div>
-                )}
-                {status === "error" && (
-                  <div className="text-center py-3 px-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
-                    ❌ Something went wrong. Please try again.
-                  </div>
-                )}
               </form>
             </div>
           </div>
