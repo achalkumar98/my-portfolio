@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Trophy, Calendar, MapPin, Youtube } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
@@ -74,14 +74,35 @@ const youtubeVideos = [
 function YoutubeSlider() {
   const [active, setActive] = useState(0);
   const [loading, setLoading] = useState(false);
+  const dragStartX = React.useRef(null);
+  const dragging = React.useRef(false);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActive((prev) => (prev + 1) % youtubeVideos.length);
-      setLoading(true);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
+  const goTo = (i) => {
+    setActive(i);
+    setLoading(true);
+  };
+
+  const handleDragStart = (e) => {
+    dragStartX.current =
+      e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+    dragging.current = false;
+  };
+
+  const handleDragEnd = (e) => {
+    if (dragStartX.current === null) return;
+    const endX =
+      e.type === "touchend" ? e.changedTouches[0].clientX : e.clientX;
+    const diff = dragStartX.current - endX;
+    if (Math.abs(diff) > 50) {
+      dragging.current = true;
+      if (diff > 0) {
+        goTo((active + 1) % youtubeVideos.length);
+      } else {
+        goTo((active - 1 + youtubeVideos.length) % youtubeVideos.length);
+      }
+    }
+    dragStartX.current = null;
+  };
 
   return (
     <div className="max-w-6xl mx-auto mt-24">
@@ -97,8 +118,9 @@ function YoutubeSlider() {
         </p>
       </div>
 
-      <div className="relative group rounded-2xl overflow-hidden border border-gray-800/60 shadow-2xl shadow-cyan-500/10">
+      <div className="relative group rounded-2xl overflow-hidden border border-gray-800/60 shadow-2xl shadow-cyan-500/10 select-none">
         <div className="absolute -inset-[2px] bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-60 transition-all duration-500 -z-10" />
+
         <div className="aspect-video w-full relative">
           {loading && (
             <div className="absolute inset-0 bg-[#04081A] flex items-center justify-center z-10">
@@ -108,6 +130,8 @@ function YoutubeSlider() {
               </div>
             </div>
           )}
+
+          {/* iframe — full pointer events for play/pause */}
           <iframe
             key={active}
             src={`https://www.youtube.com/embed/${youtubeVideos[active].id}?rel=0&modestbranding=1`}
@@ -117,7 +141,39 @@ function YoutubeSlider() {
             className="w-full h-full"
             onLoad={() => setLoading(false)}
           />
+
+          {/* Transparent drag overlay — only on left/right edges */}
+          <div
+            className="absolute top-0 left-0 w-16 h-full z-20 cursor-grab active:cursor-grabbing"
+            onMouseDown={handleDragStart}
+            onMouseUp={handleDragEnd}
+            onTouchStart={handleDragStart}
+            onTouchEnd={handleDragEnd}
+          />
+          <div
+            className="absolute top-0 right-0 w-16 h-full z-20 cursor-grab active:cursor-grabbing"
+            onMouseDown={handleDragStart}
+            onMouseUp={handleDragEnd}
+            onTouchStart={handleDragStart}
+            onTouchEnd={handleDragEnd}
+          />
         </div>
+
+        {/* Arrow buttons — outside iframe area */}
+        <button
+          onClick={() =>
+            goTo((active - 1 + youtubeVideos.length) % youtubeVideos.length)
+          }
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 flex items-center justify-center text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity z-30 hover:bg-black/80"
+        >
+          ‹
+        </button>
+        <button
+          onClick={() => goTo((active + 1) % youtubeVideos.length)}
+          className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 flex items-center justify-center text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity z-30 hover:bg-black/80"
+        >
+          ›
+        </button>
       </div>
 
       {/* Dots */}
@@ -125,10 +181,7 @@ function YoutubeSlider() {
         {youtubeVideos.map((_, i) => (
           <button
             key={i}
-            onClick={() => {
-              setActive(i);
-              setLoading(true);
-            }}
+            onClick={() => goTo(i)}
             className={`transition-all duration-300 rounded-full ${
               active === i
                 ? "w-8 h-3 bg-cyan-400"
