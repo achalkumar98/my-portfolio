@@ -7,6 +7,7 @@ import {
   BookOpen,
   GraduationCap,
   Trophy,
+  Landmark,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -15,9 +16,24 @@ const EducationSection = () => {
 
   const educationData = [
     {
+      degree:
+        "Bachelor of Technology (B.Tech) in Computer Science & Engineering",
+      school: "Rungta College of Engineering & Technology, Bhilai (CSVTU)",
+      mascot: Landmark,
+      year: "2022-2025",
+      achievements: ["Completed B.Tech (CSE)", "CGPA: 8.2/10"],
+      skills: [
+        "Web Development",
+        "Database Management",
+        "Data Structures & Algorithms",
+      ],
+      description:
+        "Completed a Bachelor of Technology in Computer Science & Engineering with a strong foundation in software development, programming, databases, and modern web technologies. Built academic and practical projects while developing problem-solving, analytical, and teamwork skills.",
+    },
+    {
       degree: "Bachelor of Science (B.Sc. Hons.) in Mathematics",
       school: "S.B. College, Ara (Veer Kunwar Singh University, Bihar)",
-      mascot: "📘",
+      mascot: GraduationCap,
       year: "2018-2021",
       achievements: ["First Division", "Honours in Mathematics"],
       skills: [
@@ -28,21 +44,6 @@ const EducationSection = () => {
       ],
       description:
         "Completed a Bachelor of Science (Honours) in Mathematics with a strong foundation in mathematical concepts, analytical reasoning, and quantitative problem-solving. Developed logical thinking and computational skills through advanced coursework and practical applications.",
-    },
-    {
-      degree:
-        "Bachelor of Technology (B.Tech) in Computer Science & Engineering",
-      school: "Rungta College of Engineering & Technology, Bhilai (CSVTU)",
-      mascot: "📗",
-      year: "2022-2025",
-      achievements: ["Completed B.Tech (CSE)", "CGPA: 8.2/10"],
-      skills: [
-        "Web Development",
-        "Database Management",
-        "Data Structures & Algorithms",
-      ],
-      description:
-        "Completed a Bachelor of Technology in Computer Science & Engineering with a strong foundation in software development, programming, databases, and modern web technologies. Built academic and practical projects while developing problem-solving, analytical, and teamwork skills.",
     },
   ];
 
@@ -114,7 +115,16 @@ const EducationSection = () => {
               <div className="space-y-6">
                 <div className="space-y-2">
                   <div className="flex items-center gap-3">
-                    <span className="text-3xl">{edu.mascot}</span>
+                    <div
+                      className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                        index === 0 ? "bg-blue-500/10" : "bg-purple-500/10"
+                      }`}
+                    >
+                      <edu.mascot
+                        className={`w-6 h-6 ${index === 0 ? "text-blue-400" : "text-purple-400"}`}
+                      />
+                    </div>
+
                     <h3 className="text-2xl font-bold text-white">
                       {edu.degree}
                     </h3>
