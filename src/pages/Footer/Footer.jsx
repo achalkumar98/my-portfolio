@@ -35,7 +35,8 @@ export default function Footer() {
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-40" />
 
       <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-500 flex items-center gap-2">
+          <img src="/faviconak.ico" alt="logo" className="w-5 h-5 rounded-sm" />
           © {new Date().getFullYear()}{" "}
           <span className="gradient-text font-semibold">Achal Kumar</span>. All
           rights reserved.
