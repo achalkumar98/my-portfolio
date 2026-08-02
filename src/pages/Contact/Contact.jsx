@@ -45,7 +45,7 @@ export default function Contact() {
     if (!validate()) return;
     setLoading(true);
     const form = new FormData();
-    form.append("access_key", "YOUR_WEB3FORMS_ACCESS_KEY");
+    form.append("access_key", "4cfc59eb-3fb5-484b-9dc7-3807b22f0cf7");
     form.append("name", formData.name);
     form.append("email", formData.email);
     form.append("subject", formData.subject);
@@ -84,7 +84,7 @@ export default function Contact() {
     {
       icon: <FaInstagram className="w-4 h-4 text-[#E1306C]" />,
       label: "Instagram",
-      href: "https://instagram.com",
+      href: "https://www.instagram.com/achal.pand98/",
     },
     {
       icon: <FaGithub className="w-4 h-4 text-white" />,
@@ -94,15 +94,15 @@ export default function Contact() {
     {
       icon: <FaXTwitter className="w-4 h-4 text-white" />,
       label: "X (Twitter)",
-      href: "https://twitter.com",
+      href: "https://x.com/hackerachal1620",
     },
   ];
 
   return (
     <main className="bg-[#04081A] text-white min-h-screen">
-      <section className="min-h-screen flex items-center px-4 sm:px-6 lg:px-8 py-24 lg:py-20">
+      <section className="min-h-screen flex items-center px-4 sm:px-6 lg:px-8 pt-32 pb-20">
         <div className="container mx-auto max-w-6xl w-full">
-          <div className="grid lg:grid-cols-2 gap-10 items-start">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
             {/* Left Column */}
             <div className="space-y-6">
               {/* Badge */}

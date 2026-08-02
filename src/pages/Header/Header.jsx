@@ -81,6 +81,7 @@ export default function Header() {
                     onClick={() => {
                       setActiveLink(id);
                       setIsMenuOpen(false);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
                     className={`px-3 py-2 md:py-1.5 rounded-lg md:rounded-full text-sm font-medium
                       transition-all duration-300 flex items-center gap-2

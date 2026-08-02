@@ -8,6 +8,7 @@ import Hero from "./pages/Hero/Hero";
 import Skills from "./pages/Skills/Skills";
 import Education from "./pages/Education/Education";
 import Hackathons from "./pages/Hackathons/Hackathon";
+import Footer from "./pages/Footer/Footer";
 import { Route, Routes } from "react-router-dom";
 
 export default function App() {
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="/hackathons" element={<Hackathons />} />
         </Routes>
       )}
+      <Footer />
     </>
   );
 }
