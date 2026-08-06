@@ -13,7 +13,7 @@ const projects = [
       "An AI-powered full-stack career platform built with Next.js, TypeScript, Node.js, Express, MongoDB, and Groq AI for resume analysis, career recommendations, AI interviews, job matching, and career progress tracking.",
     link: aiCareerNavigator,
     color: "#2563eb",
-    githubLink: "https://github.com/your-username/ai-career-navigator",
+    githubLink: "https://github.com/achalkumar98/ai-career-path-predicator",
     liveLink: "https://ai-career-path-predicator-tawny.vercel.app/",
   },
   {
