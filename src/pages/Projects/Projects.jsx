@@ -2,10 +2,20 @@ import { ReactLenis } from "lenis/react";
 import { useTransform, motion, useScroll } from "framer-motion";
 import { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
+import aiCareerNavigator from "@/assets/images/aiCareerNavigator.png";
 import devTinder from "@/assets/images/devTinder.png";
 import ecom from "@/assets/images/ecom.png";
 
 const projects = [
+  {
+    title: "AI Career Navigator",
+    description:
+      "An AI-powered full-stack career platform built with Next.js, TypeScript, Node.js, Express, MongoDB, and Groq AI for resume analysis, career recommendations, AI interviews, job matching, and career progress tracking.",
+    link: aiCareerNavigator,
+    color: "#2563eb",
+    githubLink: "https://github.com/your-username/ai-career-navigator",
+    liveLink: "https://ai-career-path-predicator-tawny.vercel.app/",
+  },
   {
     title: "DevTinder – Connect with Developers Like Never Before!",
     description:
