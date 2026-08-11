@@ -74,32 +74,30 @@ const youtubeVideos = [
 function YoutubeSlider() {
   const [active, setActive] = useState(0);
   const [loading, setLoading] = useState(false);
+  const swipeRef = React.useRef(null);
   const dragStartX = React.useRef(null);
-  const dragging = React.useRef(false);
 
   const goTo = (i) => {
     setActive(i);
     setLoading(true);
   };
 
-  const handleDragStart = (e) => {
+  const prev = () => goTo((active - 1 + youtubeVideos.length) % youtubeVideos.length);
+  const next = () => goTo((active + 1) % youtubeVideos.length);
+
+  // Swipe handlers — attached to the dedicated strip BELOW the iframe
+  const onSwipeStart = (e) => {
     dragStartX.current =
       e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
-    dragging.current = false;
   };
 
-  const handleDragEnd = (e) => {
+  const onSwipeEnd = (e) => {
     if (dragStartX.current === null) return;
     const endX =
       e.type === "touchend" ? e.changedTouches[0].clientX : e.clientX;
     const diff = dragStartX.current - endX;
-    if (Math.abs(diff) > 50) {
-      dragging.current = true;
-      if (diff > 0) {
-        goTo((active + 1) % youtubeVideos.length);
-      } else {
-        goTo((active - 1 + youtubeVideos.length) % youtubeVideos.length);
-      }
+    if (Math.abs(diff) > 40) {
+      diff > 0 ? next() : prev();
     }
     dragStartX.current = null;
   };
@@ -118,20 +116,20 @@ function YoutubeSlider() {
         </p>
       </div>
 
-      <div className="relative group rounded-2xl overflow-hidden border border-gray-800/60 shadow-2xl shadow-cyan-500/10 select-none">
+      {/* Video wrapper — no overflow-hidden so arrows sit outside the iframe */}
+      <div className="relative group rounded-2xl border border-gray-800/60 shadow-2xl shadow-cyan-500/10">
         <div className="absolute -inset-[2px] bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-60 transition-all duration-500 -z-10" />
 
-        <div className="aspect-video w-full relative">
+        {/* iframe container */}
+        <div className="aspect-video w-full relative rounded-2xl overflow-hidden">
           {loading && (
-            <div className="absolute inset-0 bg-[#04081A] flex items-center justify-center z-10">
+            <div className="absolute inset-0 bg-[#04081A] flex items-center justify-center z-10 rounded-2xl">
               <div className="flex flex-col items-center gap-3">
                 <div className="w-12 h-12 rounded-full border-4 border-gray-700 border-t-cyan-400 animate-spin" />
                 <p className="text-gray-400 text-sm">Loading video...</p>
               </div>
             </div>
           )}
-
-          {/* iframe — full pointer events for play/pause */}
           <iframe
             key={active}
             src={`https://www.youtube.com/embed/${youtubeVideos[active].id}?rel=0&modestbranding=1`}
@@ -141,55 +139,54 @@ function YoutubeSlider() {
             className="w-full h-full"
             onLoad={() => setLoading(false)}
           />
-
-          {/* Transparent drag overlay — only on left/right edges */}
-          <div
-            className="absolute top-0 left-0 w-16 h-full z-20 cursor-grab active:cursor-grabbing"
-            onMouseDown={handleDragStart}
-            onMouseUp={handleDragEnd}
-            onTouchStart={handleDragStart}
-            onTouchEnd={handleDragEnd}
-          />
-          <div
-            className="absolute top-0 right-0 w-16 h-full z-20 cursor-grab active:cursor-grabbing"
-            onMouseDown={handleDragStart}
-            onMouseUp={handleDragEnd}
-            onTouchStart={handleDragStart}
-            onTouchEnd={handleDragEnd}
-          />
         </div>
 
-        {/* Arrow buttons — outside iframe area */}
+        {/* Arrow buttons — positioned relative to outer wrapper, outside the iframe */}
         <button
-          onClick={() =>
-            goTo((active - 1 + youtubeVideos.length) % youtubeVideos.length)
-          }
-          className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 flex items-center justify-center text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity z-30 hover:bg-black/80"
+          onClick={prev}
+          aria-label="Previous video"
+          className="absolute -left-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 border border-gray-700 flex items-center justify-center text-white text-2xl z-30 hover:bg-black transition-colors shadow-lg
+                     opacity-100 md:opacity-0 md:group-hover:opacity-100 md:transition-opacity"
         >
           ‹
         </button>
         <button
-          onClick={() => goTo((active + 1) % youtubeVideos.length)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 flex items-center justify-center text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity z-30 hover:bg-black/80"
+          onClick={next}
+          aria-label="Next video"
+          className="absolute -right-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 border border-gray-700 flex items-center justify-center text-white text-2xl z-30 hover:bg-black transition-colors shadow-lg
+                     opacity-100 md:opacity-0 md:group-hover:opacity-100 md:transition-opacity"
         >
           ›
         </button>
       </div>
 
-      {/* Dots */}
-      <div className="flex items-center justify-center gap-3 mt-6">
-        {youtubeVideos.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i)}
-            className={`transition-all duration-300 rounded-full ${
-              active === i
-                ? "w-8 h-3 bg-cyan-400"
-                : "w-3 h-3 bg-gray-600 hover:bg-gray-400"
-            }`}
-          />
-        ))}
+      {/* Swipe strip — sits below the iframe, captures touch/drag for navigation */}
+      <div
+        ref={swipeRef}
+        className="w-full h-10 flex items-center justify-center mt-2 cursor-grab active:cursor-grabbing select-none touch-pan-y"
+        onMouseDown={onSwipeStart}
+        onMouseUp={onSwipeEnd}
+        onTouchStart={onSwipeStart}
+        onTouchEnd={onSwipeEnd}
+      >
+        {/* Dots inside the swipe strip */}
+        <div className="flex items-center gap-3 pointer-events-none">
+          {youtubeVideos.map((_, i) => (
+            <button
+              key={i}
+              onClick={(e) => { e.stopPropagation(); goTo(i); }}
+              className={`transition-all duration-300 rounded-full pointer-events-auto ${
+                active === i
+                  ? "w-8 h-3 bg-cyan-400"
+                  : "w-3 h-3 bg-gray-600 hover:bg-gray-400"
+              }`}
+            />
+          ))}
+        </div>
       </div>
+      <p className="text-center text-gray-600 text-xs mt-1 select-none">
+        ← swipe or drag here to switch · click arrows to navigate →
+      </p>
     </div>
   );
 }

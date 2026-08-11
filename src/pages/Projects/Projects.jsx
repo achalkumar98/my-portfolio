@@ -1,40 +1,19 @@
 import { ReactLenis } from "lenis/react";
 import { useTransform, motion, useScroll } from "framer-motion";
 import { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import aiCareerNavigator from "@/assets/images/aiCareerNavigator.png";
-import devTinder from "@/assets/images/devTinder.png";
-import ecom from "@/assets/images/ecom.png";
+import projectsData from "@/lib/projectsData";
 
-const projects = [
-  {
-    title: "AI Career Navigator",
-    description:
-      "An AI-powered full-stack career platform built with Next.js, TypeScript, Node.js, Express, MongoDB, and Groq AI for resume analysis, career recommendations, AI interviews, job matching, and career progress tracking.",
-    link: aiCareerNavigator,
-    color: "#2563eb",
-    githubLink: "https://github.com/achalkumar98/ai-career-path-predicator",
-    liveLink: "https://ai-career-path-predicator-tawny.vercel.app/",
-  },
-  {
-    title: "DevTinder – Connect with Developers Like Never Before!",
-    description:
-      "DevTinder is a developer networking platform with swipe-based matching and real-time chat.",
-    link: devTinder,
-    color: "#f97316",
-    githubLink: "https://github.com/achalkumar98/devTinder-web",
-    liveLink: "https://dev-tinder-web-flame.vercel.app/login",
-  },
-  {
-    title: "E-Commerce Website – MERN Full Stack Application",
-    description:
-      "E-Commerce Website is a full-stack MERN platform for browsing products, managing a cart, and making secure payments via Stripe.",
-    link: ecom,
-    color: "#22d3ee",
-    githubLink: "https://github.com/achalkumar98/e-commerce-website",
-    liveLink: "https://e-commerce-website-jfor.vercel.app/",
-  },
-];
+const projects = projectsData.map((p) => ({
+  id: p.id,
+  title: p.title,
+  description: p.description,
+  link: p.image,
+  color: p.color,
+  githubLink: p.githubLink,
+  liveLink: p.liveLink,
+}));
 
 export default function Projects() {
   const container = useRef(null);
@@ -97,6 +76,7 @@ export default function Projects() {
               <Card
                 key={`p_${i}`}
                 i={i}
+                id={project.id}
                 url={project.link}
                 title={project.title}
                 color={project.color}
@@ -117,6 +97,7 @@ export default function Projects() {
 
 function Card({
   i,
+  id,
   title,
   description,
   url,
@@ -188,7 +169,28 @@ function Card({
               </div>
 
               <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 md:mb-4">
-                {title}
+                <Link
+                  to={`/projects/${id}`}
+                  className="group/title inline-flex items-start gap-2 hover:opacity-80 transition-opacity"
+                >
+                  <span className="underline-offset-4 decoration-2 group-hover/title:underline" style={{ textDecorationColor: color }}>
+                    {title}
+                  </span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke={color}
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="mt-1.5 flex-shrink-0 opacity-0 group-hover/title:opacity-100 transition-opacity -translate-x-1 group-hover/title:translate-x-0 duration-200"
+                  >
+                    <path d="M7 17L17 7M17 7H7M17 7v10" />
+                  </svg>
+                </Link>
               </h2>
               <p className="text-sm md:text-base text-gray-400 leading-relaxed line-clamp-3 md:line-clamp-none max-w-md">
                 {description}
@@ -272,6 +274,7 @@ function Card({
 // Add PropTypes validation
 Card.propTypes = {
   i: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
