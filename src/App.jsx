@@ -3,6 +3,7 @@ import "./assets/css/index.css";
 import Experience from "./pages/Experience/Experience";
 import Contact from "./pages/Contact/Contact";
 import Projects from "./pages/Projects/Projects";
+import ProjectDetail from "./pages/Projects/ProjectDetail";
 import Header from "./pages/Header/Header";
 import Hero from "./pages/Hero/Hero";
 import Skills from "./pages/Skills/Skills";
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="/education" element={<Education />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:projectId" element={<ProjectDetail />} />
           <Route path="/hackathons" element={<Hackathons />} />
         </Routes>
       )}
