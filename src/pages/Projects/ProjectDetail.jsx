@@ -128,7 +128,7 @@ export default function ProjectDetail() {
         <div className="absolute top-8 left-6 md:left-10 z-20">
           <Link
             to="/projects"
-            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-black/30 backdrop-blur-md text-sm text-gray-300 hover:text-white hover:border-white/40 hover:bg-black/50 transition-all duration-200"
+            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-black/30 backdrop-blur-md text-sm text-gray-400 hover:text-white hover:border-white/40 hover:bg-black/50 transition-all duration-200"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
             Back to Projects
@@ -159,14 +159,14 @@ export default function ProjectDetail() {
             transition={{ duration: 0.55, delay: 0.08 }}
             className="text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-4"
           >
-            {project.shortTitle}
+            <span className="gradient-text">{project.shortTitle}</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="text-lg md:text-xl text-gray-300 max-w-2xl mb-8"
+            className="text-lg md:text-xl text-gray-40 font-medium tracking-wide max-w-2xl mb-8"
           >
             {project.tagline}
           </motion.p>
@@ -196,7 +196,7 @@ export default function ProjectDetail() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm border border-white/25 bg-white/8 backdrop-blur-sm hover:bg-white/15 hover:border-white/40 transition-all duration-200"
               >
-                <Github className="w-4 h-4" /> GitHub (Frontend)
+                <Github className="w-4 h-4" /> GitHub
               </a>
             )}
             {project.githubBackendLink && (
