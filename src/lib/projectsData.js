@@ -36,7 +36,7 @@ const projectsData = [
     description:
       "A full-stack AI-powered career platform that helps users explore career paths, analyse resumes, find jobs, and get personalised guidance — all in one place.",
     image: aiCareerNavigator,
-    color: "#2563eb",
+    color: "#7093FF",
     accentFrom: "from-blue-600",
     accentTo: "to-indigo-500",
     githubLink: "https://github.com/achalkumar98/ai-career-path-predicator",
@@ -49,14 +49,13 @@ const projectsData = [
       { layer: "Frontend",        tech: "Next.js 15, React 19, TypeScript, Tailwind CSS v4" },
       { layer: "Backend",         tech: "Node.js, Express 5" },
       { layer: "Database",        tech: "MongoDB with Mongoose" },
-      { layer: "AI",              tech: "Groq API — llama-3.3-70b-versatile" },
-      { layer: "Charts",          tech: "Recharts 3 (React 19 compatible)" },
+      { layer: "AI",              tech: "Groq API" },
       { layer: "Authentication",  tech: "JWT + bcryptjs" },
-      { layer: "Validation",      tech: "Joi — every request body/query/file validated" },
+      { layer: "Validation",      tech: "Joi — every api validated" },
       { layer: "File Upload",     tech: "Multer + pdf-parse" },
       { layer: "Email",           tech: "Nodemailer with Gmail SMTP" },
       { layer: "Job Search",      tech: "Puppeteer + LinkedIn public job listings" },
-      { layer: "API Docs",        tech: "Swagger UI (/v1/docs)" },
+      { layer: "API Docs",        tech: "Swagger UI" },
     ],
     features: [
       {
@@ -105,16 +104,6 @@ const projectsData = [
         icon: ShieldCheck,
       },
       {
-        title: "Dark / Light Theme",
-        desc: "Toggle between dark and light UI modes from Account Settings.",
-        icon: SunMoon,
-      },
-      {
-        title: "Floating Chat Widget",
-        desc: "AI chat accessible from any authenticated page via a floating button.",
-        icon: MessageCircle,
-      },
-      {
         title: "Feedback & Contact",
         desc: "In-app feedback form and contact form delivered via Gmail SMTP.",
         icon: Mail,
@@ -136,7 +125,7 @@ const projectsData = [
     description:
       "A developer networking platform where tech enthusiasts can connect, chat, and collaborate based on mutual interest. Inspired by Tinder — swipe left to ignore, swipe right to connect, with real-time chat powered by Socket.io.",
     image: devTinder,
-    color: "#f97316",
+    color: "#f59e0b",
     accentFrom: "from-orange-500",
     accentTo: "to-rose-500",
     githubLink: "https://github.com/achalkumar98/devTinder-web",
@@ -192,9 +181,6 @@ const projectsData = [
       "Reporting & Blocking",
       "Push Notifications",
     ],
-    team: [
-      { name: "Achal Kumar", role: "Full Stack Developer" },
-    ],
   },
 
   {
@@ -205,7 +191,7 @@ const projectsData = [
     description:
       "An e-commerce platform that provides a seamless shopping experience. Customers can explore products, view detailed information, add items to their cart, and complete purchases securely through Stripe integration.",
     image: ecom,
-    color: "#22d3ee",
+    color: "#22EEB4",
     accentFrom: "from-cyan-500",
     accentTo: "to-teal-400",
     githubLink: "https://github.com/achalkumar98/e-commerce-website",
@@ -257,9 +243,6 @@ const projectsData = [
       "Order History",
       "Push Notifications",
       "PWA Support",
-    ],
-    team: [
-      { name: "Achal Kumar", role: "Full Stack Developer" },
     ],
   },
 ];
