@@ -240,7 +240,7 @@ const profile = {
                   onClick={(e) => {
                     e.preventDefault();
                     window.open(
-                      "https://drive.google.com/file/d/1O7dYK19IIruMkEO5NIhy-bhHVuplf2VA/view?usp=sharing",
+                      "https://drive.google.com/file/d/1PCGrAbyFo_58JiH7KWiw9tFQ5IOD2HmD/view?usp=sharing",
                       "_blank",
                     );
                   }}
