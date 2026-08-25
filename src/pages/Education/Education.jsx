@@ -1,18 +1,4 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-import EducationLoader from "@/components/ui/EducationLoader";
-import {
-  Star,
-  Award,
-  Calendar,
-  BookOpen,
-  GraduationCap,
-  Trophy,
-  Landmark,
-} from "lucide-react";
-=======
-import { GraduationCap, Calendar, MapPin, Award, Trophy, BookOpen } from "lucide-react";
->>>>>>> dev
+import { GraduationCap, Calendar, MapPin, Trophy, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
 
 const educationData = [
@@ -56,65 +42,8 @@ const educationData = [
   },
 ];
 
-<<<<<<< HEAD
-  const educationData = [
-    {
-      degree:
-        "Bachelor of Technology (B.Tech) in Computer Science & Engineering",
-      school: "Rungta College of Engineering & Technology, Bhilai (CSVTU)",
-      mascot: Landmark,
-      year: "2022-2025",
-      achievements: ["Completed B.Tech (CSE)", "CGPA: 8.2/10"],
-      skills: [
-        "Web Development",
-        "Database Management",
-        "Data Structures & Algorithms",
-      ],
-      description:
-        "Completed a Bachelor of Technology in Computer Science & Engineering with a strong foundation in software development, programming, databases, and modern web technologies. Built academic and practical projects while developing problem-solving, analytical, and teamwork skills.",
-    },
-    {
-      degree: "Bachelor of Science (B.Sc. Hons.) in Mathematics",
-      school: "S.B. College, Ara (Veer Kunwar Singh University, Bihar)",
-      mascot: GraduationCap,
-      year: "2018-2021",
-      achievements: ["First Division", "Honours in Mathematics"],
-      skills: [
-        "Mathematics",
-        "Analytical Thinking",
-        "Problem Solving",
-        "Logical Reasoning",
-      ],
-      description:
-        "Completed a Bachelor of Science (Honours) in Mathematics with a strong foundation in mathematical concepts, analytical reasoning, and quantitative problem-solving. Developed logical thinking and computational skills through advanced coursework and practical applications.",
-    },
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
-=======
 function EducationCard({ edu, index }) {
   const Icon = edu.icon;
->>>>>>> dev
 
   return (
     <motion.div
@@ -133,19 +62,17 @@ function EducationCard({ edu, index }) {
         style={{
           background: `linear-gradient(135deg, ${edu.accentFrom}, ${edu.accentTo}, ${edu.accentFrom})`,
           backgroundSize: "200% 200%",
-          animation: "gradient-shift 3s linear infinite",
         }}
       />
 
       {/* Card body */}
       <div className="relative bg-gray-900/90 rounded-lg overflow-hidden h-full border border-gray-800/50 shadow-xl backdrop-blur-xl flex flex-col">
 
-        {/* ── Visual header — background + icon, clipped separately from badge ── */}
-        <div className={`relative h-48 flex-shrink-0`}>
+        {/* Visual header — background clipped separately so badge isn't clipped */}
+        <div className="relative h-48 flex-shrink-0">
 
-          {/* Background layer — clipped inside its own wrapper */}
+          {/* Background clipped in its own wrapper */}
           <div className={`absolute inset-0 overflow-hidden rounded-t-lg bg-gradient-to-br ${edu.gradientBg}`}>
-            {/* Dot-grid pattern */}
             <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <pattern id={`dots-${index}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -154,7 +81,6 @@ function EducationCard({ edu, index }) {
               </defs>
               <rect width="100%" height="100%" fill={`url(#dots-${index})`} />
             </svg>
-            {/* Glow blobs */}
             <div
               className="absolute -bottom-8 -right-8 w-40 h-40 rounded-full blur-3xl opacity-60 group-hover:opacity-90 transition-opacity duration-500"
               style={{ backgroundColor: edu.glowColor }}
@@ -165,7 +91,7 @@ function EducationCard({ edu, index }) {
             />
           </div>
 
-          {/* Centre icon + short degree — overlaid on background */}
+          {/* Centre icon + short degree */}
           <div className="relative z-10 h-full flex flex-col items-center justify-center gap-3 px-6 pb-6">
             <div
               className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
@@ -184,7 +110,7 @@ function EducationCard({ edu, index }) {
             </p>
           </div>
 
-          {/* Badge — at bottom of header, sits outside the overflow clip */}
+          {/* Badge — outside overflow clip so snake border shows fully */}
           <div className="absolute bottom-0 left-0 right-0 px-3 pb-3 flex items-end z-20">
             <div
               className={`snake-border-light inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r ${edu.badgeColor} text-black font-bold text-xs shadow-lg`}
@@ -194,10 +120,9 @@ function EducationCard({ edu, index }) {
           </div>
         </div>
 
-        {/* ── Content body ── */}
+        {/* Content body */}
         <div className="p-6 flex flex-col flex-1 space-y-4">
 
-          {/* Title + school */}
           <div>
             <h3
               className="text-lg font-bold leading-snug"
@@ -216,13 +141,13 @@ function EducationCard({ edu, index }) {
             <p className="text-gray-500 text-xs mt-0.5 pl-5">{edu.university}</p>
           </div>
 
-          {/* Description */}
-          <p className="text-gray-300 border-l-4 pl-4 text-sm leading-relaxed"
-            style={{ borderColor: `${edu.accentFrom}60` }}>
+          <p
+            className="text-gray-300 border-l-4 pl-4 text-sm leading-relaxed"
+            style={{ borderColor: `${edu.accentFrom}60` }}
+          >
             {edu.description}
           </p>
 
-          {/* Meta row */}
           <div className="flex flex-wrap gap-3 text-xs text-gray-400">
             <span className="flex items-center gap-1">
               <Calendar className="w-3 h-3" style={{ color: edu.accentFrom }} />
@@ -234,7 +159,6 @@ function EducationCard({ edu, index }) {
             </span>
           </div>
 
-          {/* Skill tags */}
           <div className="flex flex-wrap gap-1.5">
             {edu.skills.map((skill, i) => (
               <span
@@ -247,7 +171,7 @@ function EducationCard({ edu, index }) {
           </div>
         </div>
 
-        {/* Corner accents — identical to hackathon card */}
+        {/* Corner accents */}
         <div className="absolute top-4 right-4 w-20 h-20 pointer-events-none">
           <div className="absolute top-0 right-0 w-6 h-[2px]" style={{ backgroundColor: `${edu.accentFrom}60` }} />
           <div className="absolute top-0 right-0 w-[2px] h-6" style={{ backgroundColor: `${edu.accentFrom}60` }} />
@@ -265,19 +189,16 @@ export default function EducationSection() {
   return (
     <section className="min-h-screen relative overflow-hidden py-32 bg-[#04081A]">
 
-      {/* Grid background */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-grid-white/[0.04] bg-[length:50px_50px]" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#04081A] via-transparent to-[#04081A]" />
       </div>
 
-      {/* Ambient glows */}
       <div className="absolute top-20 left-20 w-96 h-96 bg-teal-500/10 rounded-full filter blur-3xl animate-pulse" />
       <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500/10 rounded-full filter blur-3xl animate-pulse delay-1000" />
 
       <div className="max-w-6xl mx-auto px-4 relative z-10">
 
-        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -296,85 +217,9 @@ export default function EducationSection() {
           </p>
         </motion.div>
 
-        {/* Cards — same grid as hackathon page (md:grid-cols-2 centred) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {educationData.map((edu, index) => (
-<<<<<<< HEAD
-            <motion.div
-              key={index}
-              variants={cardVariants}
-              className={`relative border rounded-xl p-8 transition-all duration-300 bg-gray-900/50 backdrop-blur-sm ${
-                hoveredIndex === index
-                  ? "border-teal-500 scale-[1.02]"
-                  : "border-blue-400/20"
-              }`}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                        index === 0 ? "bg-blue-500/10" : "bg-purple-500/10"
-                      }`}
-                    >
-                      <edu.mascot
-                        className={`w-6 h-6 ${index === 0 ? "text-blue-400" : "text-purple-400"}`}
-                      />
-                    </div>
-
-                    <h3 className="text-2xl font-bold text-white">
-                      {edu.degree}
-                    </h3>
-                  </div>
-                  <p className="text-lg text-gray-300 flex items-center gap-2">
-                    <BookOpen className="w-5 h-5 text-teal-500" />
-                    {edu.school}
-                  </p>
-                  <p className="text-gray-400 flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    {edu.year}
-                  </p>
-                </div>
-
-                <p className="text-gray-300 text-sm italic border-l-2 border-teal-500 pl-3">
-                  {edu.description}
-                </p>
-
-                <div className="space-y-3">
-                  <h4 className="text-sm font-semibold text-white flex items-center gap-2">
-                    <Trophy className="w-4 h-4 text-yellow-500" />
-                    Key Achievements
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {edu.achievements.map((achievement, i) => (
-                      <div
-                        key={i}
-                        className="px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 flex items-center gap-2 text-sm"
-                      >
-                        <Award className="w-4 h-4" />
-                        <span>{achievement}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  {edu.skills.map((skill, i) => (
-                    <span
-                      key={i}
-                      className="px-2 py-1 text-xs rounded bg-blue-500/10 text-blue-300"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-=======
             <EducationCard key={index} edu={edu} index={index} />
->>>>>>> dev
           ))}
         </div>
       </div>
