@@ -41,7 +41,7 @@ const hackathons = [
     projectDesc:
       "Won the regional spark at college level, qualifying for the national finals in Delhi.",
     date: "September 07, 2024",
-    location: "Bhilai, ChattishGarh",
+    location: "RCET Bhilai, Chhattisgarh",
     participants: "250 students | 10+ colleges",
     prize: "5000 INR",
     tags: ["Web3", "Regional", "Spark 6"],
@@ -62,7 +62,7 @@ const hackathons = [
     projectDesc:
       "Recognized for Best Use of TinyMCE Track Award and Best Use of GitHub at HackTheSpace 2.0.",
     date: "October 11, 2024",
-    location: "Online / Hybrid",
+    location: "SSTC Bhilai, Chhattisgarh",
     participants: "National Level",
     prize: "Best Use of TinyMCE + GitHub Award",
     tags: ["TinyMCE", "GitHub", "Award"],

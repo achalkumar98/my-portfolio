@@ -184,7 +184,7 @@ export default function Contact() {
             {/* Left Column */}
             <div className="space-y-6">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800/60 border border-gray-700 text-sm">
+              <div className="snake-border inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800/60 text-sm text-gray-300">
                 <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
                 Let's Connect
               </div>

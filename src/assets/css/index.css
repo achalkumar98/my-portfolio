@@ -260,3 +260,209 @@ pre[class*="language-"] {
 .marquee-container:hover .animate-marquee {
   animation-play-state: paused;
 }
+
+/* ── Vertical marquee (social posts — 3 columns scrolling upward) ─────────── */
+@keyframes marquee-up {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+.marquee-col {
+  animation: marquee-up linear infinite;
+}
+
+.marquee-col:hover {
+  animation-play-state: paused;
+}
+
+/* Clip the visible window so cards fade at top and bottom */
+.marquee-vertical-container {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+}
+
+/* ── DriveEmbed responsive fix ──────────────────────────────────────────────
+   Google Drive /preview embeds Drive's web UI with a toolbar. We scale the
+   iframe up slightly and use negative margins to push the Drive toolbar out
+   of view, giving a clean centered video player on all screen sizes.
+────────────────────────────────────────────────────────────────────────────── */
+.drive-embed-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6);
+}
+
+/* Scale iframe larger than the container and center it to crop Drive's
+   toolbar (~40px top) and footer chrome, leaving only the video area.  */
+.drive-embed-wrapper iframe {
+  position: absolute;
+  /* Pull up by 40px to hide Drive's top bar, compensate on bottom */
+  top: -40px;
+  left: 0;
+  width: 100%;
+  /* Taller than container so top crop doesn't leave gap at bottom */
+  height: calc(100% + 80px);
+  border: none;
+  background: #000;
+}
+
+/* Mobile: full-bleed, extra tall to absorb Drive chrome at smaller scale */
+@media (max-width: 639px) {
+  .drive-embed-section {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+  }
+  .drive-embed-wrapper {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    aspect-ratio: unset;
+    height: 56vw;
+    min-height: 220px;
+    max-height: 340px;
+  }
+  /* On mobile Drive's toolbar is relatively taller — crop more */
+  .drive-embed-wrapper iframe {
+    top: -35px;
+    height: calc(100% + 70px);
+  }
+}
+   Usage: add class "snake-border" to any pill / badge element.
+   The element needs position:relative and overflow:visible (not hidden).
+   The spinning conic-gradient is behind the element via z-index tricks.
+────────────────────────────────────────────────────────────────────────────── */
+@property --snake-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes snake-spin {
+  to { --snake-angle: 360deg; }
+}
+
+/* Snake border — full revolving comet-tail around the entire border */
+.snake-border {
+  position: relative;
+  isolation: isolate;
+}
+
+.snake-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--snake-angle),
+    transparent       0deg,
+    #60a5fa22        20deg,
+    #60a5fa88        50deg,
+    #34d399          70deg,
+    #a78bfa          85deg,
+    #ffffff99        90deg,
+    #a78bfa88        100deg,
+    #60a5fa44        120deg,
+    transparent      150deg,
+    transparent      360deg
+  );
+  animation: snake-spin 2.4s linear infinite;
+  z-index: -1;
+}
+
+.snake-border::after {
+  content: "";
+  position: absolute;
+  inset: 1.5px;
+  border-radius: inherit;
+  background: #04081A;
+  z-index: -1;
+}
+
+/* Variant: slower spin */
+.snake-border-slow::before {
+  animation-duration: 4s;
+}
+
+/* snake-border-light — for badges with their own opaque gradient bg.
+   No ::after fill needed, snake arc revolves on top.                    */
+.snake-border-light {
+  position: relative;
+  isolation: isolate;
+}
+
+.snake-border-light::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--snake-angle),
+    transparent       0deg,
+    #60a5fa22        20deg,
+    #60a5fa88        50deg,
+    #34d399          70deg,
+    #a78bfa          85deg,
+    #ffffff99        90deg,
+    #a78bfa88        100deg,
+    #60a5fa44        120deg,
+    transparent      150deg,
+    transparent      360deg
+  );
+  animation: snake-spin 2.4s linear infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* snake-border-accent — uses per-element --snake-color CSS var */
+.snake-border-accent {
+  position: relative;
+  isolation: isolate;
+}
+
+.snake-border-accent::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--snake-angle),
+    transparent                                          0deg,
+    color-mix(in srgb, var(--snake-color, #60a5fa) 15%, transparent) 20deg,
+    color-mix(in srgb, var(--snake-color, #60a5fa) 55%, transparent) 50deg,
+    var(--snake-color, #60a5fa)                         70deg,
+    color-mix(in srgb, var(--snake-color, #60a5fa) 80%, white)      85deg,
+    color-mix(in srgb, var(--snake-color, #60a5fa) 90%, white)      90deg,
+    color-mix(in srgb, var(--snake-color, #60a5fa) 50%, transparent) 110deg,
+    color-mix(in srgb, var(--snake-color, #60a5fa) 20%, transparent) 130deg,
+    transparent                                         160deg,
+    transparent                                         360deg
+  );
+  animation: snake-spin 2.4s linear infinite;
+  z-index: -1;
+}
+
+.snake-border-accent::after {
+  content: "";
+  position: absolute;
+  inset: 1.5px;
+  border-radius: inherit;
+  background: #04081A;
+  z-index: -1;
+}
