@@ -1,19 +1,28 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowLeft, ExternalLink, Github, Play, Users, Layers, Zap, Clock } from "lucide-react";
 import projectsData from "@/lib/projectsData";
 
 /* ─── helpers ─────────────────────────────────────────────────────────────── */
 function DriveEmbed({ fileId, title }) {
+  const [loaded, setLoaded] = useState(false);
+
   return (
-    <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-black">
+    <div className="drive-embed-wrapper">
+      {!loaded && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/80 z-10">
+          <div className="w-12 h-12 rounded-full border-4 border-gray-700 border-t-white/60 animate-spin" />
+          <p className="text-gray-400 text-sm">Loading video…</p>
+        </div>
+      )}
+      {/* rm=minimal removes Drive's top navigation bar for a cleaner embed */}
       <iframe
-        src={`https://drive.google.com/file/d/${fileId}/preview`}
+        src={`https://drive.google.com/file/d/${fileId}/preview?rm=minimal`}
         title={title}
-        allow="autoplay"
+        allow="autoplay; fullscreen"
         allowFullScreen
-        className="w-full h-full"
+        onLoad={() => setLoaded(true)}
       />
     </div>
   );
@@ -22,9 +31,9 @@ function DriveEmbed({ fileId, title }) {
 function TechBadge({ text, color }) {
   return (
     <span
-      className="px-3 py-1 rounded-full text-xs font-semibold border backdrop-blur-sm"
+      className="snake-border-accent px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm"
       style={{
-        borderColor: `${color}40`,
+        "--snake-color": color,
         backgroundColor: `${color}15`,
         color: color,
       }}
@@ -214,7 +223,7 @@ export default function ProjectDetail() {
       </section>
 
       {/* ── Content ──────────────────────────────────────────────────────── */}
-      <div className="max-w-6xl mx-auto px-6 md:px-10 py-20 space-y-24">
+      <div className="max-w-6xl mx-auto px-6 md:px-10 py-12 sm:py-20 space-y-16 sm:space-y-24">
 
         {/* About */}
         <motion.section
@@ -236,11 +245,14 @@ export default function ProjectDetail() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
+            className="drive-embed-section"
           >
-            <SectionLabel icon={<Play className="w-4 h-4" />} label="Project Demo" color={project.color} />
-            <p className="text-gray-400 text-sm mt-2 mb-6">
-              Watch a full walkthrough of the project in action.
-            </p>
+            <div className="px-0 sm:px-0">
+              <SectionLabel icon={<Play className="w-4 h-4" />} label="Project Demo" color={project.color} />
+              <p className="text-gray-400 text-sm mt-2 mb-4 sm:mb-6">
+                Watch a full walkthrough of the project in action.
+              </p>
+            </div>
             <DriveEmbed fileId={project.videoId} title={project.title} />
           </motion.section>
         )}
@@ -315,7 +327,8 @@ export default function ProjectDetail() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.05 }}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-gray-300 text-sm"
+                  className="snake-border-accent inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 text-gray-300 text-sm"
+                  style={{ "--snake-color": project.color }}
                 >
                   <span
                     className="w-1.5 h-1.5 rounded-full flex-shrink-0"

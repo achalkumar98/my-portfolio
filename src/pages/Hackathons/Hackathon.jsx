@@ -9,17 +9,24 @@ const HackathonCard = ({ h }) => (
     <div className="absolute inset-0 backdrop-blur-lg bg-white/5 rounded-lg" />
     <div className="absolute -inset-[2px] bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 rounded-lg opacity-0 group-hover:opacity-100 animate-gradient-xy transition-all duration-500" />
     <div className="relative bg-gray-900/90 rounded-lg overflow-hidden h-full border border-gray-800/50 shadow-xl backdrop-blur-xl flex flex-col">
-      <div className="relative h-48 overflow-hidden">
-        <img
-          src={h.coverImage}
-          alt={h.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent" />
-        <div
-          className={`absolute bottom-3 left-3 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gradient-to-r ${h.badgeColor} text-black font-bold text-xs`}
-        >
-          {h.badge}
+      {/* Image area — clipped separately so badge can overflow cleanly */}
+      <div className="relative h-48 flex-shrink-0">
+        {/* Image + overlay clipped inside their own wrapper */}
+        <div className="absolute inset-0 overflow-hidden rounded-t-lg">
+          <img
+            src={h.coverImage}
+            alt={h.title}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent" />
+        </div>
+        {/* Badge sits at bottom of header, outside the overflow clip */}
+        <div className="absolute bottom-0 left-0 right-0 px-3 pb-3 flex items-end">
+          <div
+            className={`snake-border-light inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r ${h.badgeColor} text-black font-bold text-xs shadow-lg`}
+          >
+            {h.badge}
+          </div>
         </div>
       </div>
       <div className="p-6 flex flex-col flex-1 space-y-3">
@@ -105,7 +112,7 @@ function YoutubeSlider() {
   return (
     <div className="max-w-6xl mx-auto mt-24">
       <div className="flex flex-col items-center gap-3 mb-10">
-        <span className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-semibold">
+        <span className="snake-border flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 text-red-400 text-sm font-semibold">
           <Youtube className="w-4 h-4" /> HackIndia Highlights
         </span>
         <h3 className="text-3xl md:text-5xl font-black text-white text-center">
@@ -302,6 +309,93 @@ const socialPosts = [
   },
 ];
 
+/* ── Single post card ──────────────────────────────────────────────────────── */
+function PostCard({ post }) {
+  return (
+    <a
+      href={post.externalUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block w-full rounded-xl border border-gray-800/50 bg-gray-900/80 backdrop-blur-sm
+                 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10
+                 transition-all duration-300 flex flex-col gap-3 p-5 group mb-4"
+    >
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <img
+            src={post.avatar}
+            alt={post.label}
+            className="w-8 h-8 rounded-full object-cover flex-shrink-0 border border-gray-700"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+              e.currentTarget.nextElementSibling.style.display = "flex";
+            }}
+          />
+          <div
+            className={`w-8 h-8 rounded-full items-center justify-center flex-shrink-0 hidden ${
+              post.type === "twitter" ? "bg-black border border-gray-700" : "bg-[#0A66C2]"
+            }`}
+          >
+            {post.type === "twitter" ? (
+              <FaXTwitter className="w-4 h-4 text-white" />
+            ) : (
+              <FaLinkedin className="w-4 h-4 text-white" />
+            )}
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-white leading-none">{post.label}</p>
+            <p className="text-xs text-gray-500 mt-0.5">{post.handle}</p>
+          </div>
+        </div>
+        <span className="text-xs text-gray-600 group-hover:text-cyan-400 transition-colors">↗</span>
+      </div>
+
+      <p className="text-sm text-gray-300 leading-relaxed line-clamp-4">{post.text}</p>
+
+      <div className="mt-auto pt-2 border-t border-gray-800/60">
+        <span className={`text-xs font-medium ${post.type === "twitter" ? "text-gray-400" : "text-[#0A66C2]"}`}>
+          {post.type === "twitter" ? "𝕏 Post" : "LinkedIn Post"}
+        </span>
+      </div>
+    </a>
+  );
+}
+
+/* ── 3-column vertical upward marquee ─────────────────────────────────────── */
+function VerticalMarquee({ posts }) {
+  // Split posts into 3 columns as evenly as possible
+  const col1 = posts.filter((_, i) => i % 3 === 0);
+  const col2 = posts.filter((_, i) => i % 3 === 1);
+  const col3 = posts.filter((_, i) => i % 3 === 2);
+  const columns = [
+    { posts: col1, duration: "28s", delay: "0s" },
+    { posts: col2, duration: "34s", delay: "6s" },
+    { posts: col3, duration: "24s", delay: "3s" },
+  ];
+
+  return (
+    <div
+      className="marquee-vertical-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-hidden"
+      style={{ height: "600px" }}
+    >
+      {columns.map((col, ci) => (
+        <div key={ci} className="overflow-hidden relative">
+          {/* Hide the 3rd column on sm, show all 3 on lg */}
+          <div
+            className={`marquee-col flex flex-col${ci === 2 ? " hidden lg:flex" : ci === 1 ? " hidden sm:flex" : ""}`}
+            style={{ animationDuration: col.duration, animationDelay: col.delay }}
+          >
+            {/* Double the posts so the loop is seamless */}
+            {[...col.posts, ...col.posts].map((post, i) => (
+              <PostCard key={i} post={post} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function Hackathons() {
   return (
     <div className="min-h-screen bg-[#04081A] relative overflow-hidden pt-32 pb-20">
@@ -334,7 +428,7 @@ export default function Hackathons() {
         {/* Social Posts — As Seen On */}
         <div className="mt-24">
           <div className="flex flex-col items-center gap-3 mb-12">
-            <span className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-semibold">
+            <span className="snake-border flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 text-cyan-400 text-sm font-semibold">
               🌐 As Seen On
             </span>
             <h3 className="text-3xl md:text-5xl font-black text-white text-center">
@@ -346,72 +440,8 @@ export default function Hackathons() {
             </p>
           </div>
 
-          <div className="relative marquee-container overflow-hidden">
-            <div className="absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-[#04081A] to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-[#04081A] to-transparent z-10 pointer-events-none" />
-
-            <div
-              className="animate-marquee gap-5 py-4"
-              style={{ display: "flex" }}
-            >
-              {[...socialPosts, ...socialPosts].map((post, i) => (
-                <a
-                  key={i}
-                  href={post.externalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-shrink-0 w-72 rounded-xl border border-gray-800/50 bg-gray-900/80 backdrop-blur-sm hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 flex flex-col gap-3 p-5 group"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <img
-                        src={post.avatar}
-                        alt={post.label}
-                        className="w-8 h-8 rounded-full object-cover flex-shrink-0 border border-gray-700"
-                        onError={(e) => {
-                          e.currentTarget.style.display = "none";
-                          e.currentTarget.nextElementSibling.style.display =
-                            "flex";
-                        }}
-                      />
-                      <div
-                        className={`w-8 h-8 rounded-full items-center justify-center flex-shrink-0 hidden ${post.type === "twitter" ? "bg-black border border-gray-700" : "bg-[#0A66C2]"}`}
-                      >
-                        {post.type === "twitter" ? (
-                          <FaXTwitter className="w-4 h-4 text-white" />
-                        ) : (
-                          <FaLinkedin className="w-4 h-4 text-white" />
-                        )}
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-white leading-none">
-                          {post.label}
-                        </p>
-                        <p className="text-xs text-gray-500 mt-0.5">
-                          {post.handle}
-                        </p>
-                      </div>
-                    </div>
-                    <span className="text-xs text-gray-600 group-hover:text-cyan-400 transition-colors">
-                      ↗
-                    </span>
-                  </div>
-
-                  <p className="text-sm text-gray-300 leading-relaxed line-clamp-4">
-                    {post.text}
-                  </p>
-
-                  <div className="mt-auto pt-2 border-t border-gray-800/60">
-                    <span
-                      className={`text-xs font-medium ${post.type === "twitter" ? "text-gray-400" : "text-[#0A66C2]"}`}
-                    >
-                      {post.type === "twitter" ? "𝕏 Post" : "LinkedIn Post"}
-                    </span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
+          {/* 3-column vertical upward marquee */}
+          <VerticalMarquee posts={socialPosts} />
         </div>
       </div>
 
