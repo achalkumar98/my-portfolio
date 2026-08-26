@@ -247,7 +247,7 @@ export default function ProjectDetail() {
             transition={{ duration: 0.55 }}
             className="drive-embed-section"
           >
-            <div className="px-0 sm:px-0">
+            <div className="px-6 sm:px-0">
               <SectionLabel icon={<Play className="w-4 h-4" />} label="Project Demo" color={project.color} />
               <p className="text-gray-400 text-sm mt-2 mb-4 sm:mb-6">
                 Watch a full walkthrough of the project in action.
